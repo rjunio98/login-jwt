@@ -44,7 +44,7 @@ const userController = {
       process.env.TOKEN_SECRET
     );
 
-    res.hader("authorization-token", token);
+    req.hader("authorization-token", token);
     res.send("User Logged");
   },
 };
