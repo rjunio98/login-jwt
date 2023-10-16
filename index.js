@@ -13,10 +13,10 @@ mongoose
     console.log("Conexão com o banco de dados estabelecida.");
   })
   .catch((error) => {
-    if (error) console.log(error);
+    console.log(error);
   });
 
-app.use("/user", userRouter);
+app.use("/user", express.json(), userRouter);
 
 app.listen(process.env.PORT, () => {
   console.log("Server Running");
