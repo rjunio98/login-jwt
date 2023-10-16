@@ -1,19 +1,28 @@
 const User = require("../models/User");
+const bcrypt = require("bcryptjs");
 
 const userController = {
   register: async function (req, res) {
-    const { name, email, password } = req.body;
-    const user = new User({ name, email, password });
+    const selectedUser = await User.findOne({ email: req.body.email });
+
+    if (selectedUser) {
+      return res.status(400).send("Email already exist");
+    }
+
+    const user = new User({
+      name: req.body.name,
+      email: req.body.email,
+      password: bcrypt.hashSync(req.body.password),
+    });
 
     try {
       const savedUser = await user.save();
-      res.send(savedUser)
+      res.send(savedUser);
     } catch (err) {
-     res.status(400).send(err)
+      res.status(400).send(err);
     }
   },
-  
-  
+
   login: function (req, res) {
     console.log("login");
     res.send("Login");
