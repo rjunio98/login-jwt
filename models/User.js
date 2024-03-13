@@ -7,6 +7,10 @@ const userSchema = mongoose.Schema({
     minlength: 3,
     maxlength: 50,
   },
+  admin: {
+    type: Boolean,
+    default: false,
+  },
   email: {
     type: String,
     required: true,
